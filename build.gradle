@@ -1,0 +1,51 @@
+group 'org.rk'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+//用于把源码打包成war
+apply plugin: 'war'
+//必须
+apply plugin: 'org.springframework.boot'
+
+
+
+war {
+    baseName = 'SpringBoot'
+    version = '0.0.1'
+}
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.23'
+    //spring-web
+    compile('org.springframework.boot:spring-boot-starter-web')
+    //jsp支持
+    compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+    //jstl
+    compile('javax.servlet:jstl')
+    //tomcat外部tomcat容器中执行所需,用springboot运行可以不要
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    //spring data-jpa
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.4.2.RELEASE'
+    //mysql 驱动
+    runtime('mysql:mysql-connector-java')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
